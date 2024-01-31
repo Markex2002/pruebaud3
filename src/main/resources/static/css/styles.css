@@ -1,0 +1,16 @@
+body{
+    background-color: #dff7ff;
+}
+h1{
+    font-size: 34px;
+}
+p{
+    font-weight: bold;
+    text-decoration: underline;
+}
+section{
+    margin: 40px 0px;
+}
+input{
+    padding: 10px;
+}

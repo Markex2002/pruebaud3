@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Pelicula</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<div id="contenedora" style="float:none; margin: 0 auto;width: 900px;" >
+    <form th:action="@{/peliculas/crear}" th:object="${pelicula}" method="post">
+        <div class="clearfix">
+            <div style="float: left; width: 50%">
+                <h1 th:text="#{crearPelicula}">Crear Pelicula</h1>
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
+
+                <div style="position: absolute; left: 39%; top : 39%;">
+                    <input type="submit" value="Crear"/>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="clearfix">
+            <hr/>
+        </div>
+
+        <div style="margin-top: 6px;" class="clearfix">
+            <div style="float: left;width: 50%">
+                <div th:text="#{titulo}" >Titulo</div>
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <input th:field="*{titulo}" />
+            </div>
+            <div style="float: left;width: 50%">
+                <div th:text="#{descripcion}">Descripcion</div>
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <input th:field="*{descripcion}" />
+            </div>
+            <div style="float: left;width: 50%">
+                <div  th:text="#{fechaLanzamiento}">Fecha de Lanzamiento</div>
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <input th:field="*{fecha_lanzamiento}" />
+            </div>
+            <div style="float: left;width: 50%">
+                <div  th:text="#{idIdioma}">Id Idioma</div>
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <input th:field="*{id_idioma}" />
+            </div>
+            <div style="float: left;width: 50%">
+                <div  th:text="#{duracionAlquiler}">Duracion Alquiler</div>
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <input th:field="*{duracion_alquiler}" />
+            </div>
+            <div style="float: left;width: 50%">
+                <div  th:text="#{costeRenta}">Rental Rate</div>
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <input th:field="*{rental_rate}" />
+            </div>
+            <div style="float: left;width: 50%">
+                <div  th:text="#{duracion}">Duracion</div>
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <input th:field="*{duracion}" />
+            </div>
+            <div style="float: left;width: 50%">
+                <div  th:text="#{costoReemplazo}">Replacement Cost</div>
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <input th:field="*{replacement_cost}" />
+            </div>
+            <div style="float: left;width: 50%">
+                <div  th:text="#{ultimaActualizacion}">Ultima Actualizacion</div>
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <input th:field="*{ultima_actualizacion}" />
+            </div>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

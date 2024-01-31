@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Peliculas</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+
+<body>
+<div id="contenedora" style="float:none; margin: 0 auto;width: 95%;" >
+    <div class="clearfix">
+        <div style="float: left; width: 50%">
+            <h1 th:text="#{peliculas}">Peliculas</h1>
+        </div>
+        <div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
+
+            <div style="position: absolute; left: 39%; top : 39%;">
+
+                <form action="/peliculas/crear">
+                    <input type="submit" th:value="#{bton.crear}">
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="clearfix">
+        <hr/>
+    </div>
+    <div  th:each="pelicula : ${listaPeliculas}" style="margin-top: 6px;" class="clearfix">
+        <p>Id Pelicula</p><div th:text="${pelicula.id_pelicula}">0</div>
+        <p>Titulo</p> <div th:text="${pelicula.titulo}">0</div>
+        <p>Descripcion </p><div th:text="${pelicula.descripcion}">0</div>
+        <p>Fecha de lanzamiento </p><div th:text="${pelicula.fecha_lanzamiento}">0</div>
+        <p>Id_Idioma</p> <div th:text="${pelicula.id_idioma}">0</div>
+        <p>Duracion Alquiler</p> <div th:text="${pelicula.duracion_alquiler}">0</div>
+        <p>Rental Rate</p> <div th:text="${pelicula.rental_rate}">0</div>
+        <p>Duracion</p> <div th:text="${pelicula.duracion}">0</div>
+        <p>Replacement Cost </p><div th:text="${pelicula.replacement_cost}">0</div>
+
+        <section>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <form th:action="@{/peliculas/__${pelicula.id_pelicula}__}" style="display: inline;">
+                    <input type="submit" value="Ver Detalle" />
+                </form>
+                <form th:action="@{/peliculas/editar/}+${pelicula.id_pelicula} " style="display: inline;">
+                    <input type="submit" value="Editar" />
+                </form>
+                <form th:action="@{/peliculas/borrar/__${pelicula.id_pelicula}__}" method="post" style="display: inline;">
+                    <input type="submit" value="Eliminar" />
+                </form>
+            </div>
+        </section>
+
+
+
+        <div class="clearfix">
+            <hr/>
+        </div>
+    </div>
+</div>
+</body>
+</html>
