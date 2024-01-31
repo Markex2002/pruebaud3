@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Objects;
@@ -27,34 +28,11 @@ public class PeliculaDAOImp implements PeliculaDAO{
     private JdbcTemplate jdbcTemplate;
 
 
-    public void create_CON_RECARGA_DE_ID_POR_SIMPLEJDBCINSERT(Pelicula pelicula) {
-
-        SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-        simpleJdbcInsert
-                .withTableName("pelicula")
-                .usingGeneratedKeyColumns("id_pelicula");
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("titulo", pelicula.getTitulo())
-                .addValue("descripcion", pelicula.getDescripcion())
-                .addValue("fecha_lanzamiento", pelicula.getFecha_lanzamiento())
-                .addValue("id_idioma", pelicula.getId_idioma())
-                .addValue("duracion_alquiler", pelicula.getDuracion_alquiler())
-                .addValue("rental_rate", pelicula.getRental_rate())
-                .addValue("duracion", pelicula.getDuracion())
-                .addValue("replacement_cost", pelicula.getReplacement_cost())
-                .addValue("ultima_actualizacion", pelicula.getUltima_actualizacion());
-        Number number = simpleJdbcInsert.executeAndReturnKey(params);
-
-        pelicula.setId_pelicula(number.intValue());
-    }
-
-
-
     @Override
     public synchronized void create(Pelicula pelicula) {
         //Desde java15+ se tiene la triple quote """ para bloques de texto como cadenas.
         String sqlInsert = """
-							INSERT INTO cliente (titulo, descripcion, fecha_lanzamiento, id_idioma, duracion_alquiler,
+							INSERT INTO pelicula (titulo, descripcion, fecha_lanzamiento, id_idioma, duracion_alquiler,
 							rental_rate, duracion, replacement_cost, ultima_actualizacion)
 							VALUES  (     ?,         ?,         ?,       ?,         ?,  ?,  ?,  ?,  ?)
 									""";
@@ -66,13 +44,17 @@ public class PeliculaDAOImp implements PeliculaDAO{
             int idx = 1;
             ps.setString(idx++, pelicula.getTitulo());
             ps.setString(idx++, pelicula.getDescripcion());
-            ps.setDate(idx++, (Date) pelicula.getFecha_lanzamiento());
+
+            Date fechaLanzamiento = new Date(pelicula.getFecha_lanzamiento().getTime());
+            ps.setDate(idx++, fechaLanzamiento);
             ps.setInt(idx++, pelicula.getId_idioma());
-            ps.setInt(idx, pelicula.getDuracion_alquiler());
-            ps.setDouble(idx, pelicula.getRental_rate());
-            ps.setInt(idx, pelicula.getDuracion());
-            ps.setDouble(idx, pelicula.getReplacement_cost());
-            ps.setDate(idx, (Date) pelicula.getUltima_actualizacion());
+            ps.setInt(idx++, pelicula.getDuracion_alquiler());
+            ps.setDouble(idx++, pelicula.getRental_rate());
+            ps.setInt(idx++, pelicula.getDuracion());
+            ps.setDouble(idx++, pelicula.getReplacement_cost());
+
+            Date fechaUltimaActualizacion = new Date(pelicula.getUltima_actualizacion().getTime());
+            ps.setDate(idx, fechaUltimaActualizacion);
             return ps;
         },keyHolder);
 
